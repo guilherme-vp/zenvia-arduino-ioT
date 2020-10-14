@@ -1,0 +1,12 @@
+{
+	"compilerOptions": {
+		"target": "es2017",
+		"module": "commonjs",
+		"lib": ["webworker", "scripthost", "esnext.asynciterable", "es6"],
+		"outDir": "js/",
+		"removeComments": false,
+		"strict": true,
+		"moduleResolution": "node",
+		"esModuleInterop": true
+	}
+}
