@@ -4,7 +4,7 @@ import config from './configurations'
 
 const port: string | undefined = `${config.port}`
 
-const socket = io.connect(`http://localhost:4000`)
+const socket = io.connect(`https://zenvia-server.herokuapp.com/`)
 
 const board = new five.Board({ port: 'COM4' })
 

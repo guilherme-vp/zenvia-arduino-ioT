@@ -16,10 +16,10 @@ const development: Config = {
 const production: Config = {
 	type: 'production',
 	host: 'https://zenvia-server.herokuapp.com',
-	namespace: 'arduino'
+	namespace: ''
 }
 
-const config = process.env.NODE_ENV !== 'development' ? development : production
+const config = process.env.NODE_ENV === 'development' ? development : production
 const port = config.type === 'development' ? ':' + config.port : ''
 const namespace = config.namespace ? config.namespace : ''
 const url = config.host + port + '/' + namespace
