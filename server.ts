@@ -1,61 +1,42 @@
 import express from 'express'
 import dotenv from 'dotenv-safe'
-import five, { LCD } from 'johnny-five'
 import http from 'http'
 import socket from 'socket.io'
+import config from './configurations'
+import socketSend from './src/config/zenvia'
 
 dotenv.config()
 
 export const env = dotenv.config()
 
-const app = express()
+export const app = express()
 
-const httpServer = new http.Server(app)
+const httpServer = http.createServer(app)
 
 const io = socket(httpServer)
 
-const board = new five.Board({ port: 'COM4' })
-
-board.on('ready', () => {
-	const lcd = new LCD({
-		controller: 'PCF8574T'
+io.on('connection', socket => {
+	console.log(`Nova conexão: ${socket.id}`)
+	socket.on('newMessage', (message: string) => {
+		console.log('parou aqui')
+		console.log(`data recebida: ${message}`)
+		io.emit(message)
 	})
-	lcd.cursor(0, 3).print('Bem vindo!')
-	setTimeout(() => {
-		lcd
-			.clear()
-			.cursor(0, 3)
-			.print('Aproveite')
-			.cursor(1, 2)
-			.print('os exemplos')
-	}, 1500)
-	setTimeout(() => {
-		lcd
-			.clear()
-			.cursor(0, 0)
-			.print('de uso das APIs')
-			.cursor(1, 3)
-			.print('da Zenvia!')
-	}, 3000)
-	setTimeout(() => {
-		lcd
-			.clear()
-			.cursor(0, 3)
-			.print('configure')
-			.cursor(1, 1)
-			.print('os seus dados')
-	}, 5000)
-	setTimeout(() => {
-		lcd.clear().cursor(0, 2).print('e aproveite!')
-	}, 8000)
-	setTimeout(() => {
-		lcd.clear()
-		lcd.noBacklight()
-	}, 10000)
 })
 
-app.listen(process.env.PORT || 3000, () => {
-	console.log(`Servidor rodando :D`)
+io.on('connection', socket => {
+	socket.disconnect(true)
+})
+
+app.get('/arduinos', (req, res) => socketSend(req, res))
+
+app.get('/', (req, res) => {
+	res.sendFile(__dirname + '/index.html')
 })
 
 export default app
+
+httpServer.listen(process.env.PORT || config.port, () => {
+	const port = process.env.PORT || config.port
+	console.log(`Servidor rodando em ${port} :D`)
+})
