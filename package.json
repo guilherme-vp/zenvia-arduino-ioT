@@ -28,7 +28,7 @@
 	"scripts": {
 		"dev": "SET NODE_ENV=development && nodemon server.ts",
 		"start": "ts-node server.ts",
-    "build": "SET NODE_ENV=production yarn clean",
+		"build": "SET NODE_ENV=production yarn clean && yarn start",
 		"deploy": "git push heroku master",
     "arduino:dev": "nodemon --watch arduino.ts",
     "arduino": "NODE_ENV=production ts-node arduino.ts"
