@@ -18,11 +18,12 @@ const httpServer = http.createServer(app)
 const io = socket(httpServer)
 
 app.use(express.static(path.join(__dirname, 'public')))
-app.set('views', path.join(__dirname, 'public'))
 
-app.use('/', (req, res) => {
-	res.render('index.html')
+app.get('/*', (_, res) => {
+	res.sendFile(path.join(__dirname, 'public/index.html'))
 })
+
+app.set('views', path.join(__dirname, 'public'))
 
 io.on('connection', socket => {
 	console.log(`Nova conexão: ${socket.id}`)
