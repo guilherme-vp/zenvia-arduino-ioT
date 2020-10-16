@@ -1,15 +1,18 @@
 import five from 'johnny-five'
-import { WhatsMessage } from './src/types/message'
+import { WhatsMessage } from '../types/message'
 import io from 'socket.io-client'
-import config from './configurations'
+import config from '../config/configurations'
 
+// Insira a porta onde seu Arduino está sendo executado
 const board = new five.Board({ port: 'COM4' })
 
 board.on('ready', () => {
 	const led = new five.Led({ pin: 13 })
 	const lcd = new five.LCD({
+		// Insira a versão do seu display lcd
 		controller: 'PCF8574T'
 	})
+	// Insira a url onde o servidor socket está sendo executado
 	const socket = io.connect(`http://localhost:${config.port}`, {
 		reconnection: true,
 		forceNew: true

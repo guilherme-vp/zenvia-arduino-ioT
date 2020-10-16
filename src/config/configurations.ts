@@ -1,4 +1,4 @@
-import { Config } from './src/types'
+import { Config } from '../types'
 
 const development: Config = {
 	type: 'development',
