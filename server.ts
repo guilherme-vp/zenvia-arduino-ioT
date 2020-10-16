@@ -1,15 +1,10 @@
 import express from 'express'
-import dotenv from 'dotenv-safe'
 import http from 'http'
 import socket from 'socket.io'
-import config from './configurations'
+import config from './src/config/configurations'
 import { WhatsMessage } from './src/types/message'
 import path from 'path'
-import sendMessage from './src/config/zenvia'
-
-dotenv.config()
-
-export const env = dotenv.config()
+import sendMessage, { sender } from './src/config/zenvia'
 
 export const app = express()
 
@@ -31,7 +26,7 @@ io.on('connection', socket => {
 		const { receiver, message } = msg
 		try {
 			const socketSend = await sendMessage({
-				sender: 'shrub-handspring',
+				sender,
 				receiver,
 				messageContent: message
 			})
