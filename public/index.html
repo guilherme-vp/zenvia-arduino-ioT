@@ -51,7 +51,7 @@
 	></script>
 	<script type="text/javascript">
 		$(function () {
-				const socket = io('http://localhost:3000', { reconnection: true }), phone = $('#phone'), message = $('#message');
+				const socket = io('http://localhost:3000', { reconnection: true, forceNew: true }), phone = $('#phone'), message = $('#message');
 			
 				if (socket) {
 					iziToast.show({
