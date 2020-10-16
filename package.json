@@ -27,11 +27,11 @@
 		"nodemon": "^2.0.4"
 	},
 	"scripts": {
-		"dev": "SET NODE_ENV=development && nodemon server.ts",
+		"dev": "nodemon --watch src server.ts arduino.ts",
 		"start": "ts-node server.ts",
 		"build": "yarn start",
 		"deploy": "git push heroku master",
-		"arduinoDev": "nodemon arduino.ts",
-		"arduino": "NODE_ENV=production ts-node arduino.ts"
+		"arduinoDev": "ts-node arduino.ts",
+		"arduino": "ts-node arduino.ts"
 	}
 }
