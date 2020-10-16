@@ -1,17 +1,15 @@
 import { Client, TextContent } from '@zenvia/sdk'
-import { WhatsMessage } from '../types/message'
+import { NewMessage, WhatsMessage } from '../types/message'
 
-const APIKey: string = 'qD7RSHFfypsPs6Et5tPybERiwq7ViruWC3ZL'
+// Insira a key fornecida no dashboard da plataforma Zenvia
+const APIKey: string = ''
 
 const client = new Client(APIKey)
 
 const whats = client.getChannel('whatsapp')
 
-interface NewMessage {
-	sender: string
-	receiver: string
-	messageContent: string
-}
+// Insira o nome do transportador da mensagem fornecido no dashboard da plataforma Zenvia
+export const sender: string = ''
 
 const sendMessage = async ({
 	sender,
