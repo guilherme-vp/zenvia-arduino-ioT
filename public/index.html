@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Zenvia Message sender</title>
+		<link rel="shortcut icon" href="./assets/favicon.jpg" type="image/x-icon">
 		<link rel="stylesheet" type="text/css" href="style.css" />
 		<link
 			rel="stylesheet"
@@ -50,7 +51,7 @@
 	></script>
 	<script type="text/javascript">
 		$(function () {
-				const socket = io('http://localhost:3000'), phone = $('#phone'), message = $('#message');
+				const socket = io('http://localhost:3000', { reconnection: true }), phone = $('#phone'), message = $('#message');
 			
 				if (socket) {
 					iziToast.show({
