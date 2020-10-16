@@ -12,7 +12,7 @@
 9. Copie o Token criado e insira dentro na constante [APIKey](https://github.com/GuiVPW/zenvia-arduino-ioT/tree/main/src/config/zenvia.ts)
 ----------
 ## Como configurar o ambiente Arduino:
-1. Configure seu sketch como no sketch abaixo: ![sketch](https://i.imgur.com/tuf9YsB.png)
+1. Configure seu sketch como no exemplo abaixo: ![sketch](https://i.imgur.com/tuf9YsB.png)
 2. Configure a porta [COM](https://github.com/GuiVPW/zenvia-arduino-ioT/tree/main/src/arduino/arduino.ts) onde seu Arduino está sendo executado
 3. Execute o código **Firmata** disponível na pasta src/arduino no arquivo [app](https://github.com/GuiVPW/zenvia-arduino-ioT/tree/main/src/arduino/app.ino)
 4. Configure a url do **socket.io** de acordo com a porta configurada, presentes em [arduino](https://github.com/GuiVPW/zenvia-arduino-ioT/tree/main/src/arduino/arduino.ts) e no arquivo público [html](https://github.com/GuiVPW/zenvia-arduino-ioT/tree/main/public) para poder receber a resposta
