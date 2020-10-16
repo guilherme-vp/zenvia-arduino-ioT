@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<title>Zenvia Message sender</title>
-		<link rel="shortcut icon" href="./assets/favicon.jpg" type="image/x-icon">
+		<link rel="shortcut icon" href="./assets/favicon.jpg" type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" href="style.css" />
 		<link
 			rel="stylesheet"
@@ -23,7 +23,7 @@
 				<div class="phone-field">
 					<h1>Enviando mensagem para o número:</h1>
 					<input
-					id="phone"
+						id="phone"
 						type="tel"
 						name="tel"
 						maxlength="11"
@@ -33,7 +33,11 @@
 				</div>
 				<button type="submit">Enviar</button>
 				<div>
-					<textarea name="message" id="message" placeholder="Digite sua mensagem"></textarea>
+					<textarea
+						name="message"
+						id="message"
+						placeholder="Digite sua mensagem"
+					></textarea>
 				</div>
 			</form>
 		</main>
@@ -51,57 +55,59 @@
 	></script>
 	<script type="text/javascript">
 		$(function () {
-				const socket = io('http://localhost:3000', { reconnection: true, forceNew: true }), phone = $('#phone'), message = $('#message');
-			
-				if (socket) {
-					iziToast.show({
-						icon: 'ico-success',
-						message: 'Socket conectado!',
-						color: 'green'
-					})
-				}
-				else {
+			const socket = io('http://localhost:3000', {
+					reconnection: true,
+					forceNew: true
+				}),
+				phone = $('#phone'),
+				message = $('#message')
+
+			if (socket) {
+				iziToast.show({
+					icon: 'ico-success',
+					message: 'Socket conectado!',
+					color: 'green'
+				})
+			} else {
+				iziToast.show({
+					icon: 'ico-warning',
+					message: 'Socket não conectado!',
+					color: 'yellow'
+				})
+			}
+			$('form').submit(function (e) {
+				e.preventDefault()
+				if (phone.val() === '' || message.val() === '') {
 					iziToast.show({
 						icon: 'ico-warning',
-						message: 'Socket não conectado!',
+						message: 'Você não preencheu todos os campos!',
 						color: 'yellow'
 					})
+					return false
 				}
-				$('form').submit(function (e) {
-					e.preventDefault();
-					if (phone.val() === "" || message.val() === "") {
-						iziToast.show({
-							icon: 'ico-warning',
-							message: 'Você não preencheu todos os campos!',
-							color: 'yellow'
-						})
-						return false
-					}
-					const messages = {
-						receiver: phone.val(),
-						message: message.val()
-					}
-					const sender = socket.emit('new message', messages);
-					
-					if (sender) {
-						iziToast.show({
-							icon: 'ico-success',
-							message: 'Mensagem enviada!',
-							color: 'green'
-						});
-					}
-					else {
-						iziToast.show({
-							icon: 'ico-error',
-							message: 'Mensagem não enviada!',
-							color: 'red'
-						});
-					}
-					phone.val('');
-					message.val('');
-					return false;
-				});
-			});
+				const messages = {
+					receiver: phone.val(),
+					message: message.val()
+				}
+				const sender = socket.emit('new message', messages)
 
+				if (sender) {
+					iziToast.show({
+						icon: 'ico-success',
+						message: 'Mensagem enviada!',
+						color: 'green'
+					})
+				} else {
+					iziToast.show({
+						icon: 'ico-error',
+						message: 'Mensagem não enviada!',
+						color: 'red'
+					})
+				}
+				phone.val('')
+				message.val('')
+				return false
+			})
+		})
 	</script>
 </html>
