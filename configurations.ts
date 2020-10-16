@@ -1,28 +1,14 @@
-type Config = {
-	type: string
-	host: string
-	namespace: string
-	port?: number | string
-	url?: string | number
-}
+import { Config } from './src/types'
 
 const development: Config = {
 	type: 'development',
 	host: 'http://localhost',
-	namespace: 'arduino',
-	port: 4000
+	port: 3000
 }
 
-const production: Config = {
-	type: 'production',
-	host: 'https://zenvia-server.herokuapp.com',
-	namespace: ''
-}
-
-const config = process.env.NODE_ENV === 'development' ? development : production
-const port = config.type === 'development' ? ':' + config.port : ''
-const namespace = config.namespace ? config.namespace : ''
-const url = config.host + port + '/' + namespace
+const config = development
+const port = config.port
+const url = config.host + port
 config.url = url
 
 export default config

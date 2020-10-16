@@ -3,7 +3,9 @@ import dotenv from 'dotenv-safe'
 import http from 'http'
 import socket from 'socket.io'
 import config from './configurations'
-import socketSend from './src/config/zenvia'
+import { WhatsMessage } from './src/types/message'
+import path from 'path'
+import sendMessage from './src/config/zenvia'
 
 dotenv.config()
 
@@ -15,28 +17,33 @@ const httpServer = http.createServer(app)
 
 const io = socket(httpServer)
 
+app.use(express.static(path.join(__dirname, 'public')))
+app.set('views', path.join(__dirname, 'public'))
+
+app.use('/', (req, res) => {
+	res.render('index.html')
+})
+
 io.on('connection', socket => {
 	console.log(`Nova conexão: ${socket.id}`)
-	socket.on('newMessage', (message: string) => {
-		console.log('parou aqui')
-		console.log(`data recebida: ${message}`)
-		io.emit(message)
+	socket.on('new message', async (msg: WhatsMessage) => {
+		const { receiver, message } = msg
+		try {
+			const socketSend = await sendMessage({
+				sender: 'shrub-handspring',
+				receiver,
+				messageContent: message
+			})
+			if (socketSend) socket.broadcast.emit('receivedMessage', msg)
+		} catch (e) {
+			console.log(e)
+		}
 	})
 })
-
-io.on('connection', socket => {
-	socket.disconnect(true)
-})
-
-app.get('/arduinos', (req, res) => socketSend(req, res))
-
-app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/index.html')
-})
-
-export default app
 
 httpServer.listen(process.env.PORT || config.port, () => {
 	const port = process.env.PORT || config.port
 	console.log(`Servidor rodando em ${port} :D`)
 })
+
+export default app
