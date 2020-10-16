@@ -1,0 +1,110 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: 0;
+}
+
+body {
+	font-family: 'Roboto', 'Segoe Ui', Arial, Helvetica, sans-serif;
+	font-size: 1rem;
+	height: 100vh;
+	color: #5a5a5a;
+	background-color: #f0f0f0;
+}
+
+.navbar {
+	height: 76px;
+	display: flex;
+	align-items: center;
+	background-color: #fff;
+	padding: 25px;
+	box-shadow: 0 0 6px #5a5a5a;
+}
+
+.navbar img {
+	width: 120px;
+}
+
+input {
+	color: #5a5a5a;
+	outline: 0;
+}
+
+.content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 50px;
+	text-align: center;
+}
+
+.phone-field {
+	display: flex;
+	align-items: flex-end;
+}
+
+.phone-field input[type='tel'] {
+	outline: 0;
+	border-width: 0 0 4px;
+	border-color: #ccc;
+	background-color: transparent;
+	font-size: 25px;
+	width: 160px;
+	margin: 0 10px;
+	color: #5a5a5a;
+	font-weight: bold;
+	text-align: center;
+	clear: both;
+}
+
+.phone-field input:focus {
+	transition: 0.5s;
+	border-color: gray;
+}
+
+button[type='submit'] {
+	margin: 50px 0;
+	background-color: #00cc00;
+	color: #fafafa;
+	border: 0 none;
+	border-radius: 10px;
+	padding: 15px 20px;
+	text-transform: uppercase;
+	font-weight: 600;
+	font-size: 1.1rem;
+	cursor: pointer;
+}
+
+button[type='submit']:active {
+	transition: 0.5s;
+	background-color: #36c701;
+}
+
+textarea {
+	resize: none;
+	background-color: #ceecf5;
+	color: #5a5a5a;
+	font-size: 1rem;
+	padding: 10px;
+	border-radius: 5px;
+	border: 0;
+	width: 100%;
+	font-size: 2rem;
+	height: 300px;
+}
+
+textarea:focus {
+	outline: 0;
+}
+
+@media only screen and (max-width: 1280px) {
+	.phone-field {
+		flex-direction: column;
+		align-items: center;
+	}
+	.phone-field input[type='tel'] {
+		margin: 20px 0;
+	}
+}

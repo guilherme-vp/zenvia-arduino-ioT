@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Zenvia Message sender</title>
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css"
+			integrity="sha512-O03ntXoVqaGUTAeAmvQ2YSzkCvclZEcPQu1eqloPaHfJ5RuNGiS4l+3duaidD801P50J28EHyonCV06CUlTSag=="
+			crossorigin="anonymous"
+		/>
+	</head>
+	<body>
+		<header class="navbar">
+			<img src="./assets/logo-zenvia.png" alt="logo" />
+		</header>
+		<main class="content">
+			<form id="sender" action="">
+				<div class="phone-field">
+					<h1>Enviando mensagem para o número:</h1>
+					<input
+					id="phone"
+						type="tel"
+						name="tel"
+						maxlength="11"
+						minlength="11"
+					/>
+					<h1>com a seguinte mensagem</h1>
+				</div>
+				<button type="submit">Enviar</button>
+				<div>
+					<textarea name="message" id="message" placeholder="Digite sua mensagem"></textarea>
+				</div>
+			</form>
+		</main>
+	</body>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"
+		integrity="sha512-AcZyhRP/tbAEsXCCGlziPun5iFvcSUpEz2jKkx0blkYKbxU81F+iq8FURwPn1sYFeksJ+sDDrI5XujsqSobWdQ=="
+		crossorigin="anonymous"
+	></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"
+		integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA=="
+		crossorigin="anonymous"
+	></script>
+	<script type="text/javascript">
+		$(function () {
+				const socket = io('http://localhost:3000'), phone = $('#phone'), message = $('#message');
+			
+				if (socket) {
+					iziToast.show({
+						icon: 'ico-success',
+						message: 'Socket conectado!',
+						color: 'green'
+					})
+				}
+				else {
+					iziToast.show({
+						icon: 'ico-warning',
+						message: 'Socket não conectado!',
+						color: 'yellow'
+					})
+				}
+				$('form').submit(function (e) {
+					e.preventDefault();
+					if (phone.val() === "" || message.val() === "") {
+						iziToast.show({
+							icon: 'ico-warning',
+							message: 'Você não preencheu todos os campos!',
+							color: 'yellow'
+						})
+						return false
+					}
+					const messages = {
+						receiver: phone.val(),
+						message: message.val()
+					}
+					const sender = socket.emit('new message', messages);
+					
+					if (sender) {
+						iziToast.show({
+							icon: 'ico-success',
+							message: 'Mensagem enviada!',
+							color: 'green'
+						});
+					}
+					else {
+						iziToast.show({
+							icon: 'ico-error',
+							message: 'Mensagem não enviada!',
+							color: 'red'
+						});
+					}
+					phone.val('');
+					message.val('');
+					return false;
+				});
+			});
+
+	</script>
+</html>
