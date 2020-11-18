@@ -2,14 +2,15 @@
 
 ## Como configurar o ambiente Zenvia:
 1. Crie uma conta na plataforma **Zenvia** 
-2. Após a criação, escolha a opção **Zenvia** Message
-3. Clique na opção "Testar gratuitamente"
-4. Escolha a opção Whatsapp no modal aberto
-5. Leia o QR Code fornecido ou envie a palavra-chave ao número informado com seu aplicativo do Whatsapp
-6. Insira a palavra-chave na constante **sender** dentro do arquivo [zenvia](https://github.com/GuiVPW/zenvia-arduino-ioT/tree/main/src/config/zenvia.ts)
-7. Feche a o modal e clique na aba **Tokens e Webhooks** no menu superior
-8. Crie um novo Token na página aberta, inserindo o nome do Token
-9. Copie o Token criado e insira dentro na constante [APIKey](https://github.com/GuiVPW/zenvia-arduino-ioT/tree/main/src/config/zenvia.ts)
+2. Após a criação, clique no menu superior, escolha a opção Produtos, na seção Desenvolvedores entre na opção **Sandbox**
+3. Crie um novo ambiente sandbox
+4. Escolha o canal Whatsapp
+5. Aperte na opção próximo
+6. Leia o QR Code fornecido ou envie a palavra-chave ao número informado com seu aplicativo do Whatsapp
+7. Insira a palavra-chave na constante **sender** dentro do arquivo [zenvia](https://github.com/GuiVPW/zenvia-arduino-ioT/tree/main/src/config/zenvia.ts)
+8. Feche a o modal e clique na aba **Tokens e Webhooks** no menu superior
+9. Crie um novo Token na página aberta, inserindo o nome do Token
+10. Copie o Token criado e insira dentro na constante [APIKey](https://github.com/GuiVPW/zenvia-arduino-ioT/tree/main/src/config/zenvia.ts)
 ----------
 ## Como configurar o ambiente Arduino:
 1. Configure seu sketch como no exemplo abaixo: ![sketch](https://i.imgur.com/tuf9YsB.png)
